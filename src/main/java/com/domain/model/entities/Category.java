@@ -8,12 +8,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tbl_categories")
-public class Category implements Serializable {
+public class Category extends BaseEntity<String> implements Serializable {
 
     public static final long serialVersionUID = 1L;
 

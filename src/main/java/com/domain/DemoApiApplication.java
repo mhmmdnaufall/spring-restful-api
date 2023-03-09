@@ -4,8 +4,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication
+import com.domain.util.AuditorAwareImpl;
+
+@SpringBootApplication				// v Configure the AuditorAware bean to be used to lookup the current principal.
+@EnableJpaAuditing(auditorAwareRef = "auditorAware") // enable auditing dengan bean 'auditorAware'
 public class DemoApiApplication {
 
 	public static void main(String[] args) {
@@ -15,6 +20,11 @@ public class DemoApiApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
+	}
+
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new AuditorAwareImpl();
 	}
 
 }

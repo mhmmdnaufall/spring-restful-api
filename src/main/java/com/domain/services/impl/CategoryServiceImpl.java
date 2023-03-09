@@ -21,6 +21,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category category) {
+
+        // membedakan Update dan Insert
+        if(category.getId() != null) {
+            Category currentCategory = categoryRepo.findById(category.getId()).get();
+            currentCategory.setName(category.getName());
+            category = currentCategory;
+        }
+
         return categoryRepo.save(category);
     }
 
