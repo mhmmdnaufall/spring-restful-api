@@ -25,10 +25,11 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
-            .authorizeHttpRequests()
-                .requestMatchers("/api/users/register").permitAll()
-                .anyRequest().fullyAuthenticated()
-            .and()
+                .authorizeHttpRequests( auth ->
+                    auth
+                            .requestMatchers("/api/users/register").permitAll()
+                            .anyRequest().fullyAuthenticated()
+                )
                 .authenticationProvider(daoAuthenticationProvider())
                 .httpBasic();
 
