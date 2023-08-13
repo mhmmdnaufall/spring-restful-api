@@ -1,4 +1,4 @@
-package com.domain.model.repos;
+package com.domain.model.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository; // otomatisasi crud
 
 import com.domain.model.entities.Supplier;
 
-public interface SupplierRepo extends CrudRepository<Supplier, Long> {
+public interface SupplierRepository extends CrudRepository<Supplier, Long> {
 
     // Derived Query
     // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference

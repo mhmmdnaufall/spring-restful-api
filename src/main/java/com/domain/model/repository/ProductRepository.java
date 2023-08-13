@@ -1,4 +1,4 @@
-package com.domain.model.repos;
+package com.domain.model.repository;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import com.domain.model.entities.Supplier;
 
 import jakarta.websocket.server.PathParam;
 
-public interface ProductRepo extends CrudRepository<Product, Long> {
+public interface ProductRepository extends CrudRepository<Product, Long> {
 
     List<Product> findByNameContains(String name);
     

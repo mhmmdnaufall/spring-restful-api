@@ -2,6 +2,7 @@ package com.domain.controllers;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +25,12 @@ import com.domain.services.SupplierService;
 import jakarta.validation.Valid;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/suppliers")
 public class SupplierController {
-    
-    @Autowired
+
     private SupplierService supplierService;
 
-    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping

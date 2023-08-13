@@ -1,12 +1,12 @@
 package com.domain.services.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.domain.model.repos.AppUserRepo;
+import com.domain.model.repository.AppUserRepository;
 import com.domain.model.entities.AppUser;
 import com.domain.services.AppUserService;
 
@@ -14,17 +14,16 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class AppUserServiceImpl implements AppUserService {
 
-    @Autowired
-    private AppUserRepo appUserRepo;
+    private AppUserRepository appUserRepository;
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return appUserRepo.findByEmail(email)
+        return appUserRepository.findByEmail(email)
             .orElseThrow(() -> 
                 new UsernameNotFoundException(
                     String.format("user with email \"%s\" not found", email)
@@ -35,7 +34,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUser registerAppUser(AppUser user) {
 
-        boolean userExists = appUserRepo.findByEmail(user.getEmail()).isPresent();
+        boolean userExists = appUserRepository.findByEmail(user.getEmail()).isPresent();
 
         if (userExists) {
             throw new RuntimeException(
@@ -46,7 +45,7 @@ public class AppUserServiceImpl implements AppUserService {
         String encodePassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
 
-        return appUserRepo.save(user);
+        return appUserRepository.save(user);
     }
     
 }

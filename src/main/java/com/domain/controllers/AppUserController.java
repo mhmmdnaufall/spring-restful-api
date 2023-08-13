@@ -1,5 +1,6 @@
 package com.domain.controllers;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +15,12 @@ import com.domain.model.entities.AppUser;
 import com.domain.services.AppUserService;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/users")
 public class AppUserController {
-    
-    @Autowired
+
     private AppUserService appUserService;
 
-    @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping("/register")

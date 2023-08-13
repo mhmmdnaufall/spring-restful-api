@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.domain.model.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.domain.model.entities.Product;
 import com.domain.model.entities.Supplier;
-import com.domain.model.repos.ProductRepo;
 import com.domain.services.ProductService;
 import com.domain.services.SupplierService;
 
@@ -22,42 +22,41 @@ import jakarta.transaction.Transactional;
  */
 @Service
 @Transactional
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepo productRepo;
+    private ProductRepository productRepository;
 
-    @Autowired
     private SupplierService supplierService;
 
     @Override
     public Product save(Product product) {
-        return productRepo.save(product); // bisa buat update juga, jadi jpa secara pintar bisa membedakannya
+        return productRepository.save(product); // bisa buat update juga, jadi jpa secara pintar bisa membedakannya
     }
 
     @Override
     public Product findOne(Long id) {
-        Optional<Product> product = productRepo.findById(id);
+        Optional<Product> product = productRepository.findById(id);
         if(!product.isPresent()) {
             return null;
         }
-        return productRepo.findById(id).get();
+        return productRepository.findById(id).get();
     }
 
     @Override
     public Iterable<Product> findAll() {
-        return productRepo.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public void removeOne(Long id) {
-        productRepo.deleteById(id);
+        productRepository.deleteById(id);
         
     }
 
     @Override
     public List<Product> findByName(String name) {
-        return productRepo.findByNameContains(name);
+        return productRepository.findByNameContains(name);
     }
 
     @Override
@@ -75,17 +74,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findProductByName(String name) {
-        return productRepo.findProductByName(name);
+        return productRepository.findProductByName(name);
     }
 
     @Override
     public List<Product> findProductByNameLike(String name) {
-        return productRepo.findProductByNameLike(name);
+        return productRepository.findProductByNameLike(name);
     }
 
     @Override
     public List<Product> findByCategory(Long categoryId) {
-        return productRepo.findProductByCategory(categoryId);
+        return productRepository.findProductByCategory(categoryId);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
         if(supplier == null) {
             return new ArrayList<Product>();
         }
-        return productRepo.findProductBySupplier(supplier);
+        return productRepository.findProductBySupplier(supplier);
     }
     
 

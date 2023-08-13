@@ -2,6 +2,7 @@ package com.domain.controllers;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,10 @@ import jakarta.validation.Valid;
  * berurusan juga dengan validasi
  */
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Autowired
     private ProductService productService;
 
     @PostMapping

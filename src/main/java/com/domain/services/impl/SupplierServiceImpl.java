@@ -3,65 +3,62 @@ package com.domain.services.impl;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.domain.model.repository.SupplierRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.domain.model.entities.Supplier;
-import com.domain.model.repos.SupplierRepo;
 import com.domain.services.SupplierService;
 
 import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class SupplierServiceImpl implements SupplierService {
 
-    @Autowired
-    private SupplierRepo supplierRepo;
+    private SupplierRepository supplierRepository;
 
     @Override
     public Supplier save(Supplier supplier) {
-        return supplierRepo.save(supplier);
+        return supplierRepository.save(supplier);
     }
 
     @Override
     public Supplier findOne(Long id) {
-        Optional<Supplier> supplier = supplierRepo.findById(id);
-        if(supplier.isEmpty()) {
-            return null;
-        }
-        return supplier.get();
+        Optional<Supplier> supplier = supplierRepository.findById(id);
+        return supplier.orElse(null);
     }
 
     @Override
     public Iterable<Supplier> findall() {
-        return supplierRepo.findAll();
+        return supplierRepository.findAll();
     }
 
     @Override
     public void removeOne(Long id) {
-        supplierRepo.deleteById(id);
+        supplierRepository.deleteById(id);
         
     }
 
     @Override
     public Supplier findByEmail(String email) {
-        return supplierRepo.findByEmail(email);
+        return supplierRepository.findByEmail(email);
     }
 
     @Override
     public List<Supplier> findByName(String name) {
-        return supplierRepo.findByNameContainsOrderByIdDesc(name);
+        return supplierRepository.findByNameContainsOrderByIdDesc(name);
     }
 
     @Override
     public List<Supplier> findByNameStartWith(String name) {
-        return supplierRepo.findByNameStartingWith(name);
+        return supplierRepository.findByNameStartingWith(name);
     }
 
     @Override
     public List<Supplier> findByNameOrEmail(String name, String email) {
-        return supplierRepo.findByNameContainsOrEmailContains(name, email);
+        return supplierRepository.findByNameContainsOrEmailContains(name, email);
     }
     
 }

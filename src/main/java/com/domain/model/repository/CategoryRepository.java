@@ -1,4 +1,4 @@
-package com.domain.model.repos;
+package com.domain.model.repository;
 
 import com.domain.model.entities.Category;
 
@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 // import org.springframework.data.repository.CrudRepository; // otomatisasi crud
 import org.springframework.data.repository.PagingAndSortingRepository; // otomatisasi crud + paging&sorting
 
-public interface CategoryRepo extends PagingAndSortingRepository<Category, Long> {
+public interface CategoryRepository extends PagingAndSortingRepository<Category, Long> {
 
     Page<Category> findByNameContains(String name, Pageable pageable);
 

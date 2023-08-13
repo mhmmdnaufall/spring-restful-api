@@ -2,6 +2,7 @@ package com.domain.controllers;
 
 import java.util.Arrays;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -27,13 +28,12 @@ import com.domain.services.CategoryService;
 import jakarta.validation.Valid;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-    @Autowired
     private CategoryService categoryService;
-    
-    @Autowired
+
     private ModelMapper modelMapper;
 
     @PostMapping
